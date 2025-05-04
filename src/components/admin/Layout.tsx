@@ -26,7 +26,7 @@ const AdminLayout = ({ children }: LayoutProps) => {
   
   const handleLogout = async () => {
     await supabase.auth.signOut();
-    navigate('/');
+    navigate('/admin/login');
   };
   
   const isActive = (path: string) => location.pathname === path;

@@ -52,6 +52,13 @@ const Hero = () => {
     fetchHeroContent();
   }, []);
 
+  const scrollToContact = () => {
+    const contactSection = document.getElementById('contact');
+    if (contactSection) {
+      contactSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -99,15 +106,15 @@ const Hero = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.4 }}
           >
-            <a 
-              href="#contact" 
+            <button 
+              onClick={scrollToContact}
               className="bg-blue-500 hover:bg-blue-600 text-white font-medium px-6 py-3 rounded-md inline-flex items-center transition-all duration-300 transform hover:scale-105"
             >
               {heroContent?.cta_text || 'Agende sua consulta'}
               <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
               </svg>
-            </a>
+            </button>
           </motion.div>
         </div>
       </div>

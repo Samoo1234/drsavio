@@ -23,6 +23,14 @@ const Navbar = () => {
   }, []);
 
   const toggleMenu = () => setIsOpen(!isOpen);
+
+  const scrollToContact = () => {
+    const contactSection = document.getElementById('contact');
+    if (contactSection) {
+      contactSection.scrollIntoView({ behavior: 'smooth' });
+      setIsOpen(false);
+    }
+  };
   
   return (
     <nav 
@@ -90,7 +98,10 @@ const Navbar = () => {
             >
               Contato
             </a>
-            <button className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition-colors">
+            <button 
+              onClick={scrollToContact}
+              className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition-colors"
+            >
               Agende sua consulta
             </button>
           </div>
@@ -155,7 +166,10 @@ const Navbar = () => {
             >
               Contato
             </a>
-            <button className="w-full bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition-colors">
+            <button 
+              onClick={scrollToContact}
+              className="w-full bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition-colors"
+            >
               Agende sua consulta
             </button>
           </div>
