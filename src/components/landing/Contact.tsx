@@ -1,7 +1,10 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { MapPin, Phone, Mail, Clock } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
+import { Database } from '../../types/database.types';
+
+type ContactInfo = Database['public']['Tables']['contact_info']['Row'];
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -13,6 +16,27 @@ const Contact = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [submitError, setSubmitError] = useState('');
+  const [contactInfo, setContactInfo] = useState<ContactInfo | null>(null);
+
+  useEffect(() => {
+    const fetchContactInfo = async () => {
+      try {
+        const { data, error } = await supabase
+          .from('contact_info')
+          .select('*')
+          .order('created_at', { ascending: false })
+          .limit(1)
+          .single();
+        
+        if (error) throw error;
+        setContactInfo(data);
+      } catch (error) {
+        console.error('Error fetching contact info:', error);
+      }
+    };
+
+    fetchContactInfo();
+  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -84,7 +108,9 @@ const Contact = () => {
                 </div>
                 <div>
                   <h4 className="font-medium text-gray-800">Endereço</h4>
-                  <p className="text-gray-600">Av. Paulista, 1000, Sala 501<br />Bela Vista, São Paulo - SP</p>
+                  {contactInfo?.address.split('\n').map((line, index) => (
+                    <p key={index} className="text-gray-600">{line}</p>
+                  ))}
                 </div>
               </div>
               
@@ -94,8 +120,8 @@ const Contact = () => {
                 </div>
                 <div>
                   <h4 className="font-medium text-gray-800">Telefone</h4>
-                  <p className="text-gray-600">(11) 3456-7890</p>
-                  <p className="text-gray-600">(11) 98765-4321</p>
+                  <p className="text-gray-600">{contactInfo?.phone1}</p>
+                  {contactInfo?.phone2 && <p className="text-gray-600">{contactInfo.phone2}</p>}
                 </div>
               </div>
               
@@ -105,7 +131,7 @@ const Contact = () => {
                 </div>
                 <div>
                   <h4 className="font-medium text-gray-800">Email</h4>
-                  <p className="text-gray-600">contato@drsaviodocarmo.com.br</p>
+                  <p className="text-gray-600">{contactInfo?.email}</p>
                 </div>
               </div>
               
@@ -115,8 +141,8 @@ const Contact = () => {
                 </div>
                 <div>
                   <h4 className="font-medium text-gray-800">Horário de atendimento</h4>
-                  <p className="text-gray-600">Segunda a Sexta: 8h às 18h</p>
-                  <p className="text-gray-600">Sábado: 8h às 12h</p>
+                  <p className="text-gray-600">{contactInfo?.business_hours}</p>
+                  <p className="text-gray-600">{contactInfo?.saturday_hours}</p>
                 </div>
               </div>
             </div>
