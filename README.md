@@ -2,6 +2,8 @@
 
 Landing page profissional para o oftalmologista Dr. Sávio do Carmo, com painel administrativo integrado ao Supabase para gerenciamento de conteúdo.
 
+Última atualização: 05/05/2025
+
 ## Tecnologias Utilizadas
 
 - React com TypeScript
