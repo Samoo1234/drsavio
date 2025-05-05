@@ -157,6 +157,26 @@ export interface Database {
           created_at?: string;
         };
       };
+      stats: {
+        Row: {
+          id: number;
+          title: string;
+          value: string;
+          created_at: string;
+        };
+        Insert: {
+          id?: number;
+          title: string;
+          value: string;
+          created_at?: string;
+        };
+        Update: {
+          id?: number;
+          title?: string;
+          value?: string;
+          created_at?: string;
+        };
+      };
     };
   };
 }
