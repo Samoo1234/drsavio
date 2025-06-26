@@ -13,6 +13,8 @@ import HeroAdmin from './pages/admin/HeroAdmin';
 import AboutAdmin from './pages/admin/AboutAdmin';
 import ContactsAdmin from './pages/admin/ContactsAdmin';
 import ContactInfoAdmin from './pages/admin/ContactInfoAdmin';
+import UsersAdmin from './pages/admin/UsersAdmin';
+import MediaAdmin from './pages/admin/MediaAdmin';
 import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
@@ -85,6 +87,16 @@ function App() {
       <Route path="/admin/contact-info" element={
         <ProtectedRoute session={session}>
           <ContactInfoAdmin />
+        </ProtectedRoute>
+      } />
+      <Route path="/admin/users" element={
+        <ProtectedRoute session={session}>
+          <UsersAdmin />
+        </ProtectedRoute>
+      } />
+      <Route path="/admin/media" element={
+        <ProtectedRoute session={session}>
+          <MediaAdmin />
         </ProtectedRoute>
       } />
     </Routes>

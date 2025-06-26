@@ -8,6 +8,7 @@ import {
   MessageSquare, 
   Image, 
   User, 
+  Users,
   LogOut, 
   Menu, 
   X,
@@ -160,6 +161,34 @@ const AdminLayout = ({ children }: LayoutProps) => {
               >
                 <Phone className="h-5 w-5 mr-3" />
                 Informações de Contato
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/admin/users"
+                className={`flex items-center px-3 py-2 text-sm font-medium rounded-md ${
+                  isActive('/admin/users')
+                    ? 'bg-blue-50 text-blue-700'
+                    : 'text-gray-700 hover:bg-gray-100'
+                }`}
+                onClick={() => setSidebarOpen(false)}
+              >
+                <Users className="h-5 w-5 mr-3" />
+                Usuários
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/admin/media"
+                className={`flex items-center px-3 py-2 text-sm font-medium rounded-md ${
+                  isActive('/admin/media')
+                    ? 'bg-blue-50 text-blue-700'
+                    : 'text-gray-700 hover:bg-gray-100'
+                }`}
+                onClick={() => setSidebarOpen(false)}
+              >
+                <Image className="h-5 w-5 mr-3" />
+                Galeria
               </Link>
             </li>
           </ul>
